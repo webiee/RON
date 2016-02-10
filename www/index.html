@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Page</title>
+<script type='text/JavaScript' src='http://www.onemap.sg/API/JS?accessKEY=rVV4jR8mJ9EkR4lv+w5rO8ZvBEixc5KfOwjQ8YnqEjvD6uX6E/5UBe4663d6dvWgQgb/KYARJFdGEHT3fyTzE4sqhg6FyeYOHJihKNlOxK2jd4q1qpcsFA==|mv73ZvjFcSo=&v=3.10&type=full'></script>
+<style> 
+#panel, #flip {
+    padding: 5px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+
+#panel {
+    padding: 50px;
+    display: none;
+}
+</style>
+</head>
+<body>
+<div id="flip">Navigation Menu</div>
+<div id="panel">
+<ul>
+<li>
+<a href="index.html">Home</a>
+</li>
+<li>
+<a href="flip.html">Search</a>
+</li>
+<li>
+<a href="javascript:void(0);" onclick="showhide()">Lot View</a>
+</li>
+</ul>
+</div>
+<div id="contet">
+<div id="mapDiv"></div>
+<div  id="cnti-box-tp" style="display:none;">
+   <label>Get lot view</label>
+ <input type="range" id="slider"  value="0.0" min="0.0" max="30.0" step="0.1" />
+   </div>
+</div>
+ <script>
+ function showhide()
+{
+$('#cnti-box-tp').toggle();
+$("#panel").slideUp("slow");
+} 
+ var OneMap ;
+    console.log("Loading ArcGIS...");
+    require(["esri/map","esri/symbols/PictureMarkerSymbol","esri/graphic",
+            "esri/SpatialReference",
+            "esri/geometry/Point",
+            "dojo/on","dojo/domReady!"],
+        function(Map,PictureMarkerSymbol,Graphic,SpatialReference,Point,on) {
+            var helper = null;
+
+           
+        OneMap = new GetOneMap('mapDiv','SM');  
+
+
+                navigator.geolocation.getCurrentPosition(locationSuccess,locationError,{setHighAccuracy:true});
+				 function locationSuccess(position){
+                if(position.coords.latitude != null || position.coords.longitude != null)
+				{
+				var xVal = position.coords.longitude;
+				var yVal = position.coords.latitude;
+				OneMap.showLocation(xVal,yVal);
+                  
+                  
+                }
+            }
+        function locationError(err){
+                console.log("locationError: " + err.toString());
+            }
+
+            
+
+        
+
+         
+          
+
+        } 
+    ); 
+ </script>
+<script src="scripts/jquery-2.1.3.min.js"></script>    
+<script> 
+$(document).ready(function(){
+    $("#flip").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+	
+});
+</script>
+<script>
+var count = 1;
+var tiled;
+$(document).on('input change', '#slider', function() {
+var a = $(this).val();
+if(a==0)
+{
+if(tiled!=""&&count!=1)
+{
+ 
+  
+require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/domReady!"],
+        function(Map, ArcGISTiledMapServiceLayer) {
+var _baseMapHost = "http://www.onemap.sg/ArcGIS/rest/services/";
+var tileHost1 = "http://t1.onemap.sg/ArcGIS/rest/services/"
+var tileHost2 = "http://t2.onemap.sg/ArcGIS/rest/services/";
+var _baseMapURL;
+var _baseMapURL1;
+var _baseMapURL2;
+        _baseMapURL = _baseMapHost + "basemap" + "/MapServer";
+        _baseMapURL1 = tileHost1 + "basemap" + "/MapServer";
+        _baseMapURL2 = tileHost2 + "basemap" + "/MapServer";
+   var request = new XMLHttpRequest();
+   
+          OneMap.map.addLayer(new OM.CustomTileServiceLayer());
+          
+		  
+		  
+        }
+      );
+  
+}
+}
+
+if(a==30)
+{
+ require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/domReady!"],
+        function(Map, ArcGISTiledMapServiceLayer) {
+var _baseMapHost = "http://www.onemap.sg/ArcGIS/rest/services/";
+var tileHost1 = "http://t1.onemap.sg/ArcGIS/rest/services/"
+var tileHost2 = "http://t2.onemap.sg/ArcGIS/rest/services/";
+var _baseMapURL;
+var _baseMapURL1;
+var _baseMapURL2;
+        _baseMapURL = _baseMapHost + "LOT_VIEW" + "/MapServer";
+        _baseMapURL1 = tileHost1 + "LOT_VIEW" + "/MapServer";
+        _baseMapURL2 = tileHost2 + "LOT_VIEW" + "/MapServer";
+   var request = new XMLHttpRequest();
+   
+          tiled = new ArcGISTiledMapServiceLayer(_baseMapURL, { tileServers: [_baseMapURL1, _baseMapURL2] });
+          OneMap.map.addLayer(tiled);
+		  console.log(OneMap.map.layerIds);
+		  
+        }
+      );
+	  count = count+1;
+}
+
+});
+</script>
+<script src="scripts/jQueryHelper.js"></script>
+
+ </body>
+</html>
