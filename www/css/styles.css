@@ -95,7 +95,7 @@ body{font-family: arial; overflow:hidden;}
     font-size: 16px;
 	vertical-align: baseline;}
 	
-#divResults{padding-left: 22px; margin-top: 20px;}
+#divResults{padding-left: 22px; margin-top: 20px;color: gray;}
 #divResults tr th{padding-bottom: 12px;}
 .esriLargeSliderVertical{    margin-left: 10px !important;
     margin-top:50px !important;}
