@@ -112,18 +112,20 @@ body{font-family: arial; overflow:hidden;}
 #divMain_gc{}
 .dijitReset{padding: 0px 3px !important; background-color: rgba(255,255,255,1);}
 .dijit.dijitReset.dijitSliderV tbody{border: 1px solid #e5e5e5;}
-#cnti-box-tp{position: absolute;
-    top: 161px;
+#cnti-box-tp{position: absolute; top:0; right:0; background:transparent; height:100vh;}
+.inn-cnti{position: absolute;
+    bottom: 15px;
     padding: 3px 8px !important;
     background-color: rgba(255,255,255,1);
     box-shadow: 0px 0px 3px #999;
     font-size: 15px;
-    left: 16px;
-    border-radius: 4px;}
+    right: 15px;
+    border-radius: 4px;
+	min-width: 185px;}
 .hm #cnti-box-tp{left: 77px;}
-#cnti-box-tp label{vertical-align: middle;}
-#cnti-box-tp input{vertical-align: middle;}
-#cnti-box-tp p{display: inline-block;
+.inn-cnti label{vertical-align: middle;}
+.inn-cnti input{vertical-align: middle;}
+.inn-cnti p{display: inline-block;
     vertical-align: baseline;
     text-align: center;     vertical-align: middle;}
 
