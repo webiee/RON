@@ -79,10 +79,11 @@ body{font-family: arial; overflow:hidden;}
 
 #search-map{background: #488bf8;
     color: #fff;
-    line-height: 35px;
+    height: 35px;
     border: 1px solid #0f4db2;
     padding: 0 31px;
-    font-size: 16px;} 
+    font-size: 16px;
+	border-radius: 0;} 
 	
 #txtSearchText{height: 35px;
     border: 1px solid #ddd;
@@ -91,7 +92,8 @@ body{font-family: arial; overflow:hidden;}
     width: 300px;
     box-shadow: 0 0px 4px #eee;
 	padding: 0 5px;
-    font-size: 16px;}
+    font-size: 16px;
+	vertical-align: baseline;}
 	
 #divResults{padding-left: 22px; margin-top: 20px;}
 #divResults tr th{padding-bottom: 12px;}
@@ -104,9 +106,9 @@ body{font-family: arial; overflow:hidden;}
     vertical-align: bottom;}
 #divResults tr td a{text-decoration:none; font-size:15px;}
 #divMain{height:100vh !important; width:100% !important;}
-#mapDiv{height:100vh !important; width:100% !important;}
-#divMain_root, #mapDiv_root{width:100% !important; height:100vh !important;}
-#OneMapLogo{padding-left: 15px; margin-top: 15px;}
+#divMain_root{width:100% !important; height:100vh !important;}
+#OneMapLogo{padding-left: 15px; margin-top: 15px; z-index: 9999999;}
+#divMain_gc{}
 .dijitReset{padding: 0px 3px !important; background-color: rgba(255,255,255,1);}
 .dijit.dijitReset.dijitSliderV tbody{border: 1px solid #e5e5e5;}
 #cnti-box-tp{position: absolute;
@@ -117,9 +119,43 @@ body{font-family: arial; overflow:hidden;}
     font-size: 15px;
     left: 16px;
     border-radius: 4px;}
-.hm #cnti-box-tp{left: 77px;}
 #cnti-box-tp label{vertical-align: middle;}
 #cnti-box-tp input{vertical-align: middle;}
 #cnti-box-tp p{display: inline-block;
     vertical-align: baseline;
     text-align: center;     vertical-align: middle;}
+
+@media(max-width:1024px){
+	html{overflow-x: hidden; overflow-y:hidden;}
+	}
+	
+@media(max-width:568px){
+#flip .fa{padding: 3px 7px;}
+.flip-dv{width: 36px;}
+#content{padding-left: 48px;}
+#txtSearchText{width: 215px;     height: 28px;}
+#search-map{padding: 0 22px; height: 28px; font-size: 14px;}
+#divResults tr td a{font-size: 14px;}
+#panel{padding-left: 50px;}
+.container.rwded{left: 190px;}
+#panel ul li a{font-size: 15px;}
+}
+
+@media(max-width:414px){
+#txtSearchText{width: 200px;}
+	}
+	
+@media(max-width:375px){
+#txtSearchText{width: 150px; height: 25px;}
+#search-map{padding: 0 11px;
+    height: 25px;}
+#cnti-box-tp input{width: 86px;}
+	}
+
+@media(max-width:320px){
+#txtSearchText{width: 140px;}
+#search-map{font-size: 12px;}
+.container.rwded{left: 150px;}
+#panel{    padding-left: 85px;}
+#panel ul li a{font-size: 14px;}
+	}
