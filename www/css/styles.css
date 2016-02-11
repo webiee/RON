@@ -103,8 +103,8 @@ body{font-family: arial; overflow:hidden;}
 	    padding-bottom: 3px;
     vertical-align: bottom;}
 #divResults tr td a{text-decoration:none; font-size:15px;}
-#divMain{height:100vh; width:100%;}
-#mapDiv{height:100vh; width:100%;}
+#divMain{height:100vh !important; width:100% !important;}
+#mapDiv{height:100vh !important; width:100% !important;}
 #divMain_root, #mapDiv_root{width:100% !important; height:100vh !important;}
 #OneMapLogo{padding-left: 15px; margin-top: 15px;}
 .dijitReset{padding: 0px 3px !important; background-color: rgba(255,255,255,1);}
@@ -117,6 +117,7 @@ body{font-family: arial; overflow:hidden;}
     font-size: 15px;
     left: 16px;
     border-radius: 4px;}
+.hm #cnti-box-tp{left: 77px;}
 #cnti-box-tp label{vertical-align: middle;}
 #cnti-box-tp input{vertical-align: middle;}
 #cnti-box-tp p{display: inline-block;
