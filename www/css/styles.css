@@ -1,0 +1,124 @@
+*{margin:0; padding:0;}
+body{font-family: arial; overflow:hidden;}
+#panel, .flip-dv {
+    padding: 5px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3;
+}
+
+#panel {
+    padding: 50px;
+   
+}
+
+#flip .fa{    background: #ccc;
+    border-radius: 3px;
+    padding: 6px 10px;
+    color: #666;
+    font-size: 21px;}
+	
+.flip-dv{width: 50px; position:absolute; height:100vh; border: 0;
+    background: #333;
+    border-left: 1px dashed #fff;
+    border-right: 1px dashed #fff;
+	    padding-top: 0;
+		    padding-bottom: 0;
+	background: url(../images/menu-bg.png);
+    }
+	
+#flip{padding-top: 21px;}	
+
+#content{padding-left: 62px; width: 100%; height: 100vh; box-sizing: border-box;     padding-top: 0;
+    padding-bottom: 0;
+    -moz-box-sizing: border-box;}
+	
+#panel{    background: #ccc;
+    position: absolute;
+    width: 240px;
+    height: 100%;
+    left: -240px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+	    padding: 0;
+    text-align: left;
+    border: 0;
+	background: url(../images/submenu.png);}
+	
+.container{position: relative;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    -webkit-transition: left 0.4s ease-in-out;
+    -moz-transition: left 0.4s ease-in-out;
+    -ms-transition: left 0.4s ease-in-out;
+    -o-transition: left 0.4s ease-in-out;
+    transition: left 0.4s ease-in-out;}
+	
+#panel ul{    margin: 0;
+    padding: 0;
+    list-style: none;}
+
+#panel ul li{margin: 0;}
+
+#panel ul li a{padding: 15px 20px;
+    font-size: 16px;
+    font-weight: 100;
+    color: #000;
+    text-decoration: none;
+    display: block;
+    /*border-bottom: 1px solid #999;*/
+	border-bottom: 1px solid #e5e5e5;
+    -webkit-transition: background 0.3s ease-in-out;
+    -moz-transition: background 0.3s ease-in-out;
+    -ms-transition: background 0.3s ease-in-out;
+    -o-transition: background 0.3s ease-in-out;
+    transition: background 0.3s ease-in-out;}
+
+.container.rwded{left: 240px;}
+
+#search-map{background: #488bf8;
+    color: #fff;
+    line-height: 35px;
+    border: 1px solid #0f4db2;
+    padding: 0 31px;
+    font-size: 16px;} 
+	
+#txtSearchText{height: 35px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    margin-left: 25px;
+    width: 300px;
+    box-shadow: 0 0px 4px #eee;
+	padding: 0 5px;
+    font-size: 16px;}
+	
+#divResults{padding-left: 22px; margin-top: 20px;}
+#divResults tr th{padding-bottom: 12px;}
+.esriLargeSliderVertical{    margin-left: 10px !important;
+    margin-top:50px !important;}
+#divResults tr td{    border-bottom: 1px solid #ccc;
+    margin-bottom: 65px;
+    height: 28px;
+	    padding-bottom: 3px;
+    vertical-align: bottom;}
+#divResults tr td a{text-decoration:none; font-size:15px;}
+#divMain{height:100vh; width:100%;}
+#mapDiv{height:100vh; width:100%;}
+#divMain_root, #mapDiv_root{width:100% !important; height:100vh !important;}
+#OneMapLogo{padding-left: 15px; margin-top: 15px;}
+.dijitReset{padding: 0px 3px !important; background-color: rgba(255,255,255,1);}
+.dijit.dijitReset.dijitSliderV tbody{border: 1px solid #e5e5e5;}
+#cnti-box-tp{position: absolute;
+    top: 161px;
+    padding: 3px 8px !important;
+    background-color: rgba(255,255,255,1);
+    box-shadow: 0px 0px 3px #999;
+    font-size: 15px;
+    left: 16px;
+    border-radius: 4px;}
+#cnti-box-tp label{vertical-align: middle;}
+#cnti-box-tp input{vertical-align: middle;}
+#cnti-box-tp p{display: inline-block;
+    vertical-align: baseline;
+    text-align: center;     vertical-align: middle;}
