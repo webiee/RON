@@ -19,6 +19,9 @@
     display: none;
 }
 </style>
+<script>
+document.addEventListener("offline", function(){ alert("You're offline") }, false);	
+</script>
 </head>
 <body>
 <div id="flip">Navigation Menu</div>
@@ -43,6 +46,7 @@
    </div>
 </div>
  <script>
+ 
  function showhide()
 {
 $('#cnti-box-tp').toggle();
