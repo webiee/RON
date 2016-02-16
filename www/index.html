@@ -2,6 +2,17 @@
 <html>
 <head>
 <title>Index Page</title>
+<script src="js/jquery.min.js"></script>
+<script>
+if(window.localStorage.getItem("loggedIn") == 1) 
+{
+window.location.href="home.html";
+}
+else
+{
+// Redirect to login page.
+}
+</script>
 </head>
 <body>
 
