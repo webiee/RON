@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Activate account</title>
+<script src="js/jquery.min.js"></script>
+
+</head>
+<body>
+
+<form id="activate">
+OTP : <input type="text" name="otp" id="otp" class="regfrm">
+<input type="button" value="activate" id="activation">
+<input type="hidden" id="email" name="email">
+</form>
+<script>
+
+var queryString = window.location.search.substring(1);
+    var varArray = queryString.split("="); 
+   
+	var param2 = varArray[1];
+document.getElementById("email").value = param2 ;
+	
+</script>
+<script>
+var errorflag =0;
+$('.regfrm').blur(
+function()
+{
+
+if($(this).val()=="")
+{
+errorflag =1;
+$(this).css({'border-style':'solid','border-color':'#F20505'});
+}
+else
+{
+errorflag =0;
+$(this).css({'border-style':'','border-color':''});
+
+}
+}
+);
+$('#activation').click(
+function()
+{
+ if($('#otp').val()=="") { errorflag=1;
+    $('#otp').css({'border-style':'solid','border-color':'#F20505'}); }
+if(errorflag==0)
+{
+$.ajax(
+{
+type: "POST",
+url : "http://judestechnocrats.com/onemapdemo/sg-map/activate.php",
+data:$('#activate').serialize(),
+success:function(data)
+{
+//alert(data);
+if(data=="success")
+{
+window.location.href="home.html";
+}
+}
+
+}
+
+);
+}
+}
+
+);
+</script>
+
+</body>
+</html>
