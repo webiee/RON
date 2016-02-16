@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<script src="js/jquery.min.js"></script>
+</head>
+<body>
+<div>
+<div id="errrdg">
+</div>
+<form id="login">
+Email : <input type="email" name="email" id="email" class="regfrm">
+
+Password : <input type="password" name="password" id="password" class="regfrm">
+
+<input type="button" value="login" id="loginb">
+</form>
+</div>
+<script>
+var errorflag =0;
+$('.regfrm').blur(
+
+function()
+{
+
+
+if($(this).val()=="")
+{
+errorflag =1;
+$(this).css({'border-style':'solid','border-color':'#F20505'});
+}
+else
+{
+errorflag =0;
+$(this).css({'border-style':'','border-color':''});
+
+}
+}
+);
+$('#loginb').click(
+function()
+{
+
+  if($('#email').val()=="") { errorflag=1;
+    $('#email').css({'border-style':'solid','border-color':'#F20505'}); }
+	if($('#password').val()=="") { errorflag =1;
+    $('#password').css({'border-style':'solid','border-color':'#F20505'}); }
+	if(errorflag==0)
+	{
+	$.ajax(
+	
+	{
+	type:"POST",
+	url:"http://judestechnocrats.com/onemapdemo/sg-map/login.php",
+	data:$('#login').serialize(),
+	success:function(data)
+	{
+	
+	if(data=="success")
+	{
+	window.localStorage.setItem("loggedIn", 1);
+	window.localStorage.setItem("username", document.getElementsByName("email").value);
+	window.location.href ="home.html"
+	
+	}
+	else
+	{
+	$('#errrdg').css('color','red').html("Wrong email or password , Please try a correct combination.");
+	
+	}
+	}
+	
+	
+	
+	}
+	
+	);
+	
+	}
+}
+
+);
+</script>
+</body>
+</html>
