@@ -1,0 +1,128 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Index Page</title>
+<script src="js/jquery.min.js"></script>
+</head>
+<body>
+
+<div>
+<form id="sgreg">
+Mobile : <input type="text" name="mobileno" id="mobileno"  class="regfrm">
+<div id="errmobileno"> </div>
+Email : <input type="email" name="email" id="email" class="regfrm email">
+<div id="erremail"> </div>
+Password : <input type="password" name="password" id="password" class="regfrm">
+<div id="errpassword"> </div>
+Confirm Password : <input type="password" name="confirmpass" id="confirmpass" class="regfrm cnfrmpas">
+<div id="errconfirmpass"> </div>
+<input type="button" value="Go" id="Go" >
+</form>
+</div>
+<script>
+var errorflag =0;
+var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+$('.regfrm').blur(
+
+function()
+{
+
+
+if($(this).val()=="")
+{
+errorflag =1;
+$(this).css({'border-style':'solid','border-color':'#F20505'});
+}
+else
+{
+errorflag =0;
+$(this).css({'border-style':'','border-color':''});
+
+}
+}
+);
+$('.cnfrmpas').blur(
+
+function()
+{
+
+
+if($(this).val()!=$('#password').val())
+{
+errorflag =1;
+$(this).css({'border-style':'solid','border-color':'#F20505'});
+}
+else
+{
+$(this).css({'border-style':'','border-color':''});
+errorflag =0;
+}
+}
+);
+$('.email').blur(
+
+function()
+{
+
+
+
+if(regex.test($(this).val()))
+{
+errorflag =0;
+$(this).css({'border-style':'','border-color':''});
+
+}
+else
+{
+errorflag =1;
+$(this).css({'border-style':'solid','border-color':'#F20505'});
+
+}
+}
+);
+$('#Go').click(function()
+{
+  if($('#mobileno').val()=="") { errorflag=1;
+    $('#mobileno').css({'border-style':'solid','border-color':'#F20505'}); }
+ 
+    if($('#email').val()=="") {
+	errorflag =1;
+    $('#email').css({'border-style':'solid','border-color':'#F20505'}); } 
+	else if(!regex.test($('#email').val())) { errorflag =1;
+    $('#email').css({'border-style':'solid','border-color':'#F20505'}); } 
+    if($('#password').val()=="") { errorflag =1;
+    $('#password').css({'border-style':'solid','border-color':'#F20505'}); }
+ 
+    if($('#confirmpass').val()!=$('#password').val()) { errorflag =1;
+    $('#confirmpass').css({'border-style':'solid','border-color':'#F20505'}); }
+if(errorflag==0)
+{
+$.ajax(
+{
+type:"POST",
+url : "http://judestechnocrats.com/onemapdemo/sg-map/savesgmap.php",
+data : $('#sgreg').serialize(),
+success:function(data)
+{
+var a = data.substring(0,7);
+//alert(a);
+if(a="success")
+{
+var max = data.length;
+var email = data.substring(7,max);
+//alert(email);
+window.location.href ="activation.html?email="+email;
+}
+}
+}
+
+);
+}
+	
+}
+);
+
+</script>
+</body>
+</html> 
