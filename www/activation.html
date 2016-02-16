@@ -6,7 +6,8 @@
 
 </head>
 <body>
-
+<div id="errrdg">
+</div>
 <form id="activate">
 OTP : <input type="text" name="otp" id="otp" class="regfrm">
 <input type="button" value="activate" id="activation">
@@ -57,7 +58,14 @@ success:function(data)
 //alert(data);
 if(data=="success")
 {
+window.localStorage.setItem("loggedIn", 1);
+window.localStorage.setItem("username", document.getElementsByName("email").value);
 window.location.href="home.html";
+}
+else
+{
+$('#errrdg').css('color','red').html("Incorrect OTP :(");
+
 }
 }
 
