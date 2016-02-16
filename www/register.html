@@ -7,6 +7,8 @@
 <body>
 
 <div>
+<div id="errrdg">
+</div>
 <form id="sgreg">
 Mobile : <input type="text" name="mobileno" id="mobileno"  class="regfrm">
 <div id="errmobileno"> </div>
@@ -113,6 +115,11 @@ var max = data.length;
 var email = data.substring(7,max);
 //alert(email);
 window.location.href ="activation.html?email="+email;
+}
+else
+{
+$('#errrdg').css('color','red').html("Something went wrong , please try again later!");
+
 }
 }
 }
