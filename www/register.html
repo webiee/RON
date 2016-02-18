@@ -3,23 +3,28 @@
 <head>
 <title>Index Page</title>
 <script src="js/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
-<div>
-<div id="errrdg">
-</div>
+<div class="login-page">
+<div class="register">
+<div class="logo">SG Land</div>
 <form id="sgreg">
-Mobile : <input type="text" name="mobileno" id="mobileno"  class="regfrm">
+<input type="text" name="mobileno" id="mobileno"  class="regfrm" placeholder="Enter your mobile">
 <div id="errmobileno"> </div>
-Email : <input type="email" name="email" id="email" class="regfrm email">
+<input type="email" name="email" id="email" class="regfrm email" placeholder="Enter your email">
 <div id="erremail"> </div>
-Password : <input type="password" name="password" id="password" class="regfrm">
+<input type="password" name="password" id="password" class="regfrm" placeholder="Enter your password">
 <div id="errpassword"> </div>
-Confirm Password : <input type="password" name="confirmpass" id="confirmpass" class="regfrm cnfrmpas">
+<input type="password" name="confirmpass" id="confirmpass" class="regfrm cnfrmpas" placeholder="Confirm password">
 <div id="errconfirmpass"> </div>
 <input type="button" value="Go" id="Go" >
 </form>
+</div>
 </div>
 <script>
 var errorflag =0;
