@@ -3,17 +3,27 @@
 <head>
 <title>Login</title>
 <script src="js/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<div class="login-page">
 <div>
 <div id="errrdg">
 </div>
 <form id="login">
-Email : <input type="email" name="email" id="email" class="regfrm">
+<div class="login-field">
 
-Password : <input type="password" name="password" id="password" class="regfrm">
+<div class="logo">SG Land</div>
+
+<input type="email" name="email" id="email" class="regfrm" placeholder="Enter your email">
+
+<input type="password" name="password" id="password" class="regfrm" placeholder="Enter your password">
 
 <input type="button" value="login" id="loginb">
+</div>
 </form>
 </div>
 <script>
@@ -81,5 +91,6 @@ function()
 
 );
 </script>
+</div>
 </body>
 </html>
