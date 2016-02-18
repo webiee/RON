@@ -3,16 +3,25 @@
 <head>
 <title>Activate account</title>
 <script src="js/jquery.min.js"></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<div class="login-page">
+<div id="login">
+<div class="login-field">
 <div id="errrdg">
 </div>
 <form id="activate">
-OTP : <input type="text" name="otp" id="otp" class="regfrm">
+<span>OTP :</span> <input type="text" name="otp" id="otp" class="regfrm">
 <input type="button" value="activate" id="activation">
 <input type="hidden" id="email" name="email">
 </form>
+</div>
+</div>
+</div>
 <script>
 
 var queryString = window.location.search.substring(1);
