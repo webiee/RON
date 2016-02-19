@@ -92,11 +92,13 @@ body{font-family: Lato; overflow:hidden;}
 
 #search-map{background: #488bf8;
     color: #fff;
-    height: 35px;
+    height: 36px;
     border: 1px solid #0f4db2;
     padding: 0 31px;
     font-size: 16px;
-	border-radius: 0;} 
+    border-radius: 0;
+    margin-top: 20.1px;
+    margin-left: 3px;} 
 	
 #txtSearchText{height: 35px;
     border: 1px solid #ddd;
@@ -106,9 +108,11 @@ body{font-family: Lato; overflow:hidden;}
     box-shadow: 0 0px 4px #eee;
 	padding: 0 5px;
     font-size: 16px;
-	vertical-align: baseline;}
+	vertical-align: baseline;
+	border-radius: 0;}
 	
 #divResults{padding-left: 22px; margin-top: 20px;}
+#divResults table{text-align:left;}
 #divResults tr th{padding-bottom: 12px;}
 .esriLargeSliderVertical{    margin-left: 10px !important;
     margin-top:50px !important;}
