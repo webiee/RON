@@ -41,7 +41,8 @@
 </ul>
 </div>
 <div id="content">
-<div id="mapDiv" style="background-image:url(images/mapback.jpg)"></div>
+<div id="loader" style="background-image:url(images/loader.gif);position:absolute;"></div>
+<div id="mapDiv"></div>
 <div  id="cnti-box-tp" style="display:none;">
 	<div class="inn-cnti">
     <p><i class="fa fa-cloud"></i><br />
@@ -86,7 +87,7 @@ $(document).ready(function(){
             "dojo/on","dojo/domReady!"],
         function(Map,PictureMarkerSymbol,Graphic,SpatialReference,Point,on) {
             var helper = null;
-alert("yesss");
+$('#loader').show();
            
         
 
@@ -99,7 +100,7 @@ alert("yesss");
 				var yVal = position.coords.latitude;
 				
 				OneMap.showLocation(xVal,yVal);
-                 alert("hello"); 
+                 $('#loader').hide();
                   
                 }
             }
