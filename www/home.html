@@ -16,6 +16,7 @@
   <script type='text/JavaScript' src='js/map-api.js'></script>
 <script>
  var OneMap = new GetOneMap('mapDiv','SM');  
+
 </script>
  
 </head>
@@ -41,16 +42,10 @@
 </ul>
 </div>
 <div id="content">
-<div id="loader" style="position:absolute;">
-<!--<img src="images/loader.gif">-->
-<!--<div class="cssload-thecube">
-	<div class="cssload-cube cssload-c1"></div>
-	<div class="cssload-cube cssload-c2"></div>
-	<div class="cssload-cube cssload-c4"></div>
-	<div class="cssload-cube cssload-c3"></div>
-</div>-->
+<!--<div id="loader" style="position:absolute;">
+
 <i class="fa fa-spinner fa-pulse fa-3x"></i>
-</div>
+</div>-->
 <div id="mapDiv"></div>
 <div  id="cnti-box-tp" style="display:none;">
 	<div class="inn-cnti">
@@ -63,7 +58,49 @@
    </div>
 
 </div>
+<button id="mybtn" onclick="getcurrentpos()">dsfsdf </button>
 </div>
+<script>
+$( document ).ready(function() {
+   $('#mybtn').click();
+});
+function getcurrentpos()
+{
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+       alert("not supported by this browserrr");
+    }
+
+}
+function showPosition(position) {
+		var inputSR, outputSR;
+		console.dir(position);
+		var y = position.coords.latitude;
+		var x = position.coords.longitude;
+		var inXYList = x+','+y;
+
+		inputSR = 4326;
+
+
+		outputSR = 3414;
+
+		var CoordConvertorObj = new CoordConvertor();
+		CoordConvertorObj.ConvertCoordinate(inXYList, inputSR, outputSR, showVals);
+		
+}
+ function showVals(outXY) {
+ var mystring = outXY;
+var splits = mystring.split(",");
+
+var x = parseFloat(splits[0]);
+var y = parseFloat(splits[1]);
+//alert(x+','+y);
+console.log(x+','+y);
+OneMap.showLocation(x,y);
+        }
+</script>
 <script>
 function logout()
 {
@@ -86,47 +123,7 @@ $(document).ready(function(){
     });
 });
 </script>
-<script>
 
-
-    console.log("Loading ArcGIS...");
-    require(["esri/map","esri/symbols/PictureMarkerSymbol","esri/graphic",
-            "esri/SpatialReference",
-            "esri/geometry/Point",
-            "dojo/on","dojo/domReady!"],
-        function(Map,PictureMarkerSymbol,Graphic,SpatialReference,Point,on) {
-            var helper = null;
-$('#loader').show();
-           
-        
-
-
-                navigator.geolocation.getCurrentPosition(locationSuccess,locationError,{setHighAccuracy:true});
-				 function locationSuccess(position){
-                if(position.coords.latitude != null || position.coords.longitude != null)
-				{
-				var xVal = position.coords.longitude;
-				var yVal = position.coords.latitude;
-				
-				OneMap.showLocation(xVal,yVal);
-                 $('#loader').hide();
-                  
-                }
-            }
-        function locationError(err){
-                console.log("locationError: " + err.toString());
-            }
-
-            
-
-        
-
-         
-          
-
-        } 
-    ); 
- </script>
 <script src="scripts/jquery-2.1.3.min.js"></script>    
 
 <script>
