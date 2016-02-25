@@ -504,6 +504,7 @@ width: 46.5%;
 #mobileno{width: 70%;}
 #back{margin-right: 1%;}
 .login-page .register input[type="button"]{width: 48.5%;}
+.login-page .login-field span{font-size: 30px;}
 	}
 	
 @media (max-width:375px){
@@ -522,6 +523,10 @@ width: 46.5%;
 .login-page .login-field{top:25%;}
 #mobileno{width: 65%;}
 #countries{width: 30%;}
+.login-page .login-field span{font-size: 30px; margin: 15px 0 5px;}
+.act-tap, .act-res, .did, .entr{font-size: 14px;}
+#errrdg{font-size: 14px;}
+.login-page .login-field span{font-size: 28px;}
 
 }
 @media (max-width:320px){
