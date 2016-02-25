@@ -4,6 +4,7 @@
 <title>Index Page</title>
 <script src="js/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,700' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -11,22 +12,54 @@
 <body>
 
 <div class="login-page">
-<div class="register">
-<div class="logo">SG Land</div>
-<form id="sgreg">
-<input type="text" name="mobileno" id="mobileno"  class="regfrm" placeholder="Enter your mobile">
-<div id="errmobileno"> </div>
-<input type="email" name="email" id="email" class="regfrm email" placeholder="Enter your email">
-<div id="erremail"> </div>
-<input type="password" name="password" id="password" class="regfrm" placeholder="Enter your password">
-<div id="errpassword"> </div>
-<input type="password" name="confirmpass" id="confirmpass" class="regfrm cnfrmpas" placeholder="Confirm password">
-<div id="errconfirmpass"> </div>
-<input type="button" value="Go" id="Go" >
-</form>
-</div>
+<div id="loader" style="position:absolute;display:none;">
+<i class="fa fa-spinner fa-pulse fa-3x"></i>
+ </div>
+<div class="register-box">
+    <div class="register">
+        <div class="logo">SG Land</div>
+        <div id="errrdg"> </div>
+        <form id="sgreg">
+            <select name="cc" class="regfrm" id="countries">
+            
+            <option value="+65" selected>+65</option>
+            
+            </select>
+            <input type="text" name="mobileno" id="mobileno"  class="regfrm" placeholder="Enter your mobile">
+            <div id="errmobileno"> </div>
+            <input type="email" name="email" id="email" class="regfrm email" placeholder="Enter your email">
+            <div id="erremail"> </div>
+            <input type="password" name="password" id="password" class="regfrm" placeholder="Enter your password">
+            <div id="errpassword"> </div>
+            <input type="password" name="confirmpass" id="confirmpass" class="regfrm cnfrmpas" placeholder="Confirm password">
+			<input type="hidden" name="action" value="authenticate">
+            <div id="errconfirmpass"> </div>
+            <a href="index.html"><input type="button" value="Back" id="back"></a>
+            <input type="button" value="Go" id="Go" >
+            <p class="reg-terms"><a href="terms.html">Terms & condition  </a></p>
+        </form>
+    </div>
+    </div>
 </div>
 <script>
+var email = window.localStorage.getItem("email");
+if(email!==null)
+{
+document.getElementById("email").value = email;
+}
+var mobile = window.localStorage.getItem("mobile");
+if(mobile!==null){
+document.getElementById("mobileno").value = mobile;
+}
+var password = window.localStorage.getItem("password");
+if(password!==null){document.getElementById("password").value = password;}
+if(password!==null){document.getElementById("confirmpass").value = password;}
+var cc = window.localStorage.getItem("cc");
+if(cc!==null){document.getElementById("cc").value = cc;}
+			
+</script>
+<script>
+//alert("hello");
 var errorflag =0;
 var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
@@ -105,6 +138,7 @@ $('#Go').click(function()
     $('#confirmpass').css({'border-style':'solid','border-color':'#F20505'}); }
 if(errorflag==0)
 {
+$('#loader').css('display','block');
 $.ajax(
 {
 type:"POST",
@@ -112,18 +146,28 @@ url : "http://judestechnocrats.com/onemapdemo/sg-map/savesgmap.php",
 data : $('#sgreg').serialize(),
 success:function(data)
 {
+
 var a = data.substring(0,7);
-//alert(a);
-if(a="success")
+
+if(a=="success")
 {
+
 var max = data.length;
-var email = data.substring(7,max);
+var otp = data.substring(7,max);
 //alert(email);
-window.location.href ="activation.html?email="+email;
+$('#loader').css('display','none');
+window.localStorage.setItem("otpm", "An otp has been sent to your email");
+window.localStorage.setItem("email", $('#email').val());
+window.localStorage.setItem("mobile", $('#mobileno').val());
+window.localStorage.setItem("password", $('#password').val());
+window.localStorage.setItem("otp", otp);
+window.localStorage.setItem("cc", $('#countries').val());
+window.location.href ="activation.html";
 }
 else
 {
-$('#errrdg').css('color','red').html("Something went wrong , please try again later!");
+$('#loader').css('display','none');
+$('#errrdg').css('color','red').html("Your email or mobile already exist login <a href='login.html'> here</a>");
 
 }
 }

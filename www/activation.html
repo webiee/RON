@@ -10,26 +10,75 @@
 </head>
 <body>
 <div class="login-page">
+<div id="loader" style="position:absolute;display:none;">
+<img src="images/loader.gif">
+ </div>
 <div id="login">
 <div class="login-field">
 <div id="errrdg">
 </div>
 <form id="activate">
-<span>OTP :</span> <input type="text" name="otp" id="otp" class="regfrm">
-<input type="button" value="activate" id="activation">
+<span>Thanks!</span>
+<p class="did">Did you get an otp ? </p><p class="entr">Enter it here</p>
+<input type="text" name="otp" id="otp" class="regfrm">
+<div style="clear:both;">
+
+<p class="act-tap">Enter wrong information tap <a href="register.html">here</a></p>
+<p class="act-res">Didn't receive an otp tap to <a onclick="optreset()" href="javascript:void(0)">resend</a></p>
 <input type="hidden" id="email" name="email">
+<input type="hidden" name="action" value="register">
+<input type="hidden" id="mobile" name="mobile">
+<input type="hidden" id="cc" name="cc">
+<input type="hidden" id="password" name="password">
+<a href="register.html"><input type="button" value="back" id="back"></a>
+<input type="button" value="activate" id="activation">
 </form>
 </div>
 </div>
 </div>
 <script>
+function optreset()
+{
+var email = $('#email').val();
+var formdata = 'email='+email+'&action=otpupdate';
+$.ajax(
+{
+type:"POST",
+url:"http://judestechnocrats.com/onemapdemo/sg-map/savesgmap.php",
+data:formdata,
+success:function(data)
+{
+var a = data.substring(0,7);
 
-var queryString = window.location.search.substring(1);
-    var varArray = queryString.split("="); 
-   
-	var param2 = varArray[1];
-document.getElementById("email").value = param2 ;
-	
+if(a=="success")
+{
+
+var max = data.length;
+var otp = data.substring(7,max);
+localStorage["otp"] = otp;
+//alert(otp);
+$('#errrdg').css('color','green').html("<b>An updated otp has been sent to your mail</b>");
+}
+}
+
+}
+
+
+
+);
+
+}
+var otpm = window.localStorage.getItem("otpm");
+$('#errrdg').css('color','green').html("<b>"+otpm+"</b>");
+var otp = window.localStorage.getItem("otp");
+var email = window.localStorage.getItem("email");
+document.getElementById("email").value = email;
+var mobile = window.localStorage.getItem("mobile");
+document.getElementById("mobile").value = mobile;
+var password = window.localStorage.getItem("password");
+document.getElementById("password").value = password;
+var cc = window.localStorage.getItem("cc");
+document.getElementById("cc").value = cc;			
 </script>
 <script>
 var errorflag =0;
@@ -57,30 +106,41 @@ function()
     $('#otp').css({'border-style':'solid','border-color':'#F20505'}); }
 if(errorflag==0)
 {
+var otp = window.localStorage.getItem("otp");
+var userotp = $('#otp').val();
+if(otp==userotp)
+{
+$('#loader').css('display','block');
 $.ajax(
 {
 type: "POST",
-url : "http://judestechnocrats.com/onemapdemo/sg-map/activate.php",
+url : "http://judestechnocrats.com/onemapdemo/sg-map/savesgmap.php",
 data:$('#activate').serialize(),
 success:function(data)
 {
-//alert(data);
+
 if(data=="success")
 {
+
 window.localStorage.setItem("loggedIn", 1);
-window.localStorage.setItem("username", document.getElementsByName("email").value);
 window.location.href="home.html";
+$('#loader').css('display','none');
 }
 else
 {
-$('#errrdg').css('color','red').html("Incorrect OTP :(");
-
+$('#loader').css('display','none');
+$('#errrdg').css('color','red').html("Something went wrong try again later!!");
 }
 }
 
 }
 
 );
+}
+else
+{
+$('#errrdg').css('color','red').html("Incorrect OTP :(");
+}
 }
 }
 

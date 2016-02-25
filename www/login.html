@@ -4,12 +4,16 @@
 <title>Login</title>
 <script src="js/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="css/styles.css" />
 <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,700' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <div class="login-page">
+<div id="loader" style="position:absolute;display:none;">
+<img src="images/loader.gif">
+ </div>
 <div>
 <div id="errrdg">
 </div>
@@ -19,10 +23,12 @@
 <div class="logo">SG Land</div>
 
 <input type="email" name="email" id="email" class="regfrm" placeholder="Enter your email">
-
+<input type="hidden" name="action" value="login">
 <input type="password" name="password" id="password" class="regfrm" placeholder="Enter your password">
-
+<a href="index.html"><input type="button" value="back" id="back"></a>
 <input type="button" value="login" id="loginb">
+<p class="lg-for"><a href="javascript:void(0)" id="forget">forget password ?</a></p>
+<p class="lg-create"><a href="register.html"> create an account </a></p>
 </div>
 </form>
 </div>
@@ -57,11 +63,12 @@ function()
     $('#password').css({'border-style':'solid','border-color':'#F20505'}); }
 	if(errorflag==0)
 	{
+	$('#loader').css('display','block');
 	$.ajax(
 	
 	{
 	type:"POST",
-	url:"http://judestechnocrats.com/onemapdemo/sg-map/login.php",
+	url:"http://judestechnocrats.com/onemapdemo/sg-map/savesgmap.php",
 	data:$('#login').serialize(),
 	success:function(data)
 	{
@@ -71,10 +78,11 @@ function()
 	window.localStorage.setItem("loggedIn", 1);
 	window.localStorage.setItem("username", document.getElementsByName("email").value);
 	window.location.href ="home.html"
-	
+	$('#loader').css('display','none');
 	}
 	else
 	{
+	$('#loader').css('display','none');
 	$('#errrdg').css('color','red').html("Wrong email or password , Please try a correct combination.");
 	
 	}
@@ -91,6 +99,72 @@ function()
 
 );
 </script>
+
+<div class="for-popup" style="display:none;">
+
+	<div class="popup-box">
+        <h2>Forget Your Password? <span class="close"><i class="fa fa-times"></i></span></h2>
+        <h3>Don't Worry-just enter your email address below and we'll send you your password within couple of minutes</h3>
+        
+        <form id="forgetpas">
+        	<label for="emailaddsend">Enter your email</label>
+            <input type="email" name="reemail" id="reemail" class="regfrm pp-email" placeholder="Enter your email">
+			<input type="hidden" name="action" value="forgetpassword">
+            <div style="clear:both;"></div>
+            <div class="bnt-box-for">
+            <a href="javascript:void(0)" class="cencel-pass close">Cencel</a>
+           <a href="javascript:void(0)" onclick="myforget()" class="send-pass">Submit</a>
+            </div>
+        </form>
+    </div>
 </div>
+</div>
+
+<script>
+
+$("#forget").click(function(){
+	$(".for-popup").show();
+});
+$(".close").click(function(){
+	$(".for-popup").hide();
+});
+function myforget()
+{
+if($('#reemail').val()=="") 
+{ 
+alert("please fill an email");
+}
+else
+{
+	$.ajax(
+	
+	{
+	type:"POST",
+	url:"http://judestechnocrats.com/onemapdemo/sg-map/savesgmap.php",
+	data:$('#forgetpas').serialize(),
+	success:function(data)
+	{
+	
+	if(data=="success")
+	{
+	$(".for-popup").hide();
+	$('#errrdg').css('color','green').html("New password has been sent to your email");
+	}
+	else
+	{
+	$(".for-popup").hide();
+	$('#errrdg').css('color','red').html("Your email doesn't exist");
+	}
+	}
+	
+	
+	
+	}
+	
+	);
+}
+}
+
+</script>
 </body>
 </html>

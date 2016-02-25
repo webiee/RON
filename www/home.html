@@ -47,19 +47,78 @@
 <i class="fa fa-spinner fa-pulse fa-3x"></i>
 </div>-->
 <div id="mapDiv"></div>
-<div  id="cnti-box-tp" style="display:none;">
-	<div class="inn-cnti">
-    <p><i class="fa fa-cloud"></i><br />
-	Map</p>
- 	<input type="range" id="slider"  value="0.0" min="0.0" max="30.0" step="0.1" />
- 	<p><i class="fa fa-map-marker"></i><br />
-	Lot</p>
+	<div  id="cnti-box-tp" style="display:none;">
+        <div class="inn-cnti">
+        <p><i class="fa fa-cloud"></i><br />
+        Map</p>
+        <input type="range" id="slider"  value="0.0" min="0.0" max="30.0" step="0.1" />
+        <p><i class="fa fa-map-marker"></i><br />
+        Lot</p>
+       </div>
    </div>
-   </div>
+   
+   <div class="rht-menu">
+   		<div class="inner-rht-menu menu-5">
+        	<ul class="wtf-menu">
+                <li><a href="home.html"><i class="fa fa-crosshairs"></i> Me</a></li>
+                <li class="parent"><a href="javascript:void(0)" onclick="showlot()"><i class="fa fa-map-marker"></i>Map </a>
+                    <ul class="submenu">
+                        <li> <a href="javascript:void(0)" onclick="showlot()">Lot</a> </li>
+                        <li> <a href="javascript:void(0)" onclick="showonemap()">One Map</a> </li>
+                        <li> <a href="javascript:void(0)" onclick="showgooglemap()">Google Map</a> </li>
+                    </ul>
+                </li>
+                <li> <a href="javascript:void(0)" onclick="removealllayer()"><i class="fa fa-times"></i>Clear</a> </li>
+            </ul>
+        </div><!--inner-rht-menu-->
+   </div><!--rht-menu-->
 
 </div>
 <button id="mybtn" onclick="getcurrentpos()">dsfsdf </button>
 </div>
+<script>
+function showlot()
+{
+ require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/domReady!"],
+        function(Map, ArcGISTiledMapServiceLayer) {
+var _baseMapHost = "http://www.onemap.sg/ArcGIS/rest/services/";
+var tileHost1 = "http://t1.onemap.sg/ArcGIS/rest/services/"
+var tileHost2 = "http://t2.onemap.sg/ArcGIS/rest/services/";
+var _baseMapURL;
+var _baseMapURL1;
+var _baseMapURL2;
+        _baseMapURL = _baseMapHost + "LOT_VIEW" + "/MapServer";
+        _baseMapURL1 = tileHost1 + "LOT_VIEW" + "/MapServer";
+        _baseMapURL2 = tileHost2 + "LOT_VIEW" + "/MapServer";
+   var request = new XMLHttpRequest();
+   
+          tiled = new ArcGISTiledMapServiceLayer(_baseMapURL, { tileServers: [_baseMapURL1, _baseMapURL2] });
+          OneMap.map.addLayer(tiled);
+		  console.log(OneMap.map.layerIds);
+		  
+        }
+      );
+
+}
+function showonemap()
+{
+ OneMap.map.addLayer(new OM.CustomTileServiceLayer());
+}
+function showgooglemap()
+{
+//alert("goggle");
+}
+function removealllayer()
+{
+var a = OneMap.map.graphicsLayerIds[0];
+console.log(a);
+var b = OneMap.map.getLayer(a);
+OneMap.map.removeLayer(b);
+  
+
+
+}
+</script>
 <script>
 $( document ).ready(function() {
    $('#mybtn').click();
@@ -104,8 +163,7 @@ OneMap.showLocation(x,y);
 <script>
 function logout()
 {
-window.localStorage.removeItem("loggedIn");
-window.localStorage.removeItem("username");
+localStorage.clear();
 window.location.href="index.html";
 }
 </script>
