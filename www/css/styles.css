@@ -218,7 +218,7 @@ body{font-family: Lato; overflow:hidden;}
     width: 68%;
     margin: 0 auto;
     padding: 1.5% 1%;
-    margin-top: 20%;
+    margin-top: 50%;
 	position: relative;
 	border: 3px solid #505050;}
 
@@ -531,4 +531,6 @@ width: 46.5%;
 .login-page .login-field input[type="button"], .login-page .register input[type="button"], .login-page .register input[type="button"]{font-size: 18px; padding: 8px 0;}
 .login-page input[type="email"], input[type="password"], input[type="text"]{height: 40px;}
 .cencel-pass, .send-pass{padding: 7px 0; font-size: 15px;}
+#mobileno{width: 65%;}
+#countries{width: 30%;}
 	}
