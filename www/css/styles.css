@@ -18,7 +18,6 @@ body{font-family: Lato; overflow:hidden;}
     width: 100%;
     margin: 0 auto;
     text-align: center;
-    padding-top: 20%;
     z-index: 999;}
 
 #flip .fa{    background: #ccc;
@@ -159,7 +158,7 @@ body{font-family: Lato; overflow:hidden;}
     text-align: center;     vertical-align: middle;}
 	
 
-#loader .fa-spinner{color:#fff;}
+#loader .fa-spinner{color:#fff; position: absolute; top: 50%;}
 
 .search-icn{position: absolute;
     left: 36px;
@@ -224,7 +223,7 @@ body{font-family: Lato; overflow:hidden;}
 	border: 3px solid #505050;}
 
 .popup-box h2{font-weight: normal; font-size: 30px;}
-.popup-box h2 .close{position: absolute; top: 11px; right: 11px;  font-size: 21px;}
+.popup-box h2 .close{position: absolute; top: 11px; right: 11px;  font-size: 21px; display:none;}
 .popup-box h3{font-weight: 100;
     font-size: 18px;
     margin-top: 25px;
@@ -428,15 +427,16 @@ ul.wtf-menu li a:hover{
 .login-page .login-rgt a{width:90%; font-size:24px; padding:15px 0;}
 
 .login-page .login-field input[type="button"]{
-width: 100%;
+width: 46.5%;
     font-size: 24px;
     padding: 15px 0;
     margin: 20px 0 0 0;
 }
+#countries{height: 42px;}
 .login-page .login-field input[type="button"]{padding:10px 0;}
 .login-page .home{margin:15% 0 0;}
 .login-page .register input[type="button"] {
-    padding: 10px 0; margin:20px 0 0 0; width:100%;
+    padding: 10px 0; margin:20px 0 0 0; width:46.5%;
 }
 .login-page .register input[type="email"], input[type="password"], input[type="text"]{height:40px;}
 .login-page .register input[type="button"]{font-size:24px;}
@@ -444,17 +444,22 @@ width: 100%;
 
 #txtSearchText{width: 350px; border-radius: 25px; height: 50px; font-size: 20px; padding-left: 50px;}
 .search-icn{font-size: 35px;}
-
+.popup-box{padding: 12px 15px;}
+.cencel-pass, .send-pass{width: 46%; padding: 10px 0; font-size: 24px;}
+.login-page .login-field{top: 10%;}
+#mobileno{width: 80%;}
+#countries{width: 15%; padding-left: 6px; font-size: 16px;}
 }
 
 @media (max-width:736px){
 .login-page .home{margin:0;}
-.login-page .register{overflow-x:scroll; height:390px;}
+/*.login-page .register{overflow-x:scroll; height:390px;}*/
 .login-page .register input[type="email"], input[type="password"], input[type="text"]{font-size:16px;}
 .login-page .login-field input[type="email"], input[type="password"]{font-size:16px; height:40px;}
 
 #txtSearchText{padding-left: 45px;}
 #txtSearchText{height: 45px;}
+.cencel-pass, .send-pass{width: 45%;}
 }
 
 
@@ -470,8 +475,16 @@ width: 100%;
 #panel ul li a{font-size: 18px;}
 .login-page .logo{font-size:40px;}
 .login-page .login-field{top:3%;}
-
-
+#back{margin-right: 5%;}
+.login-page .login-field input[type="button"]{margin-top: 10px;}
+.cencel-pass, .send-pass{width: 46.5%;}
+.cencel-pass{margin-right: 3%;}
+.popup-box h2{font-size: 24px;}
+.popup-box h3{font-size: 16px;}
+.cencel-pass, .send-pass{font-size: 20px;}
+#countries{width: 20%;}
+#mobileno{width: 75%;}
+.login-page .register input[type="button"]{margin-top: 10px;}
 }
 
 @media (max-width:414px){
@@ -483,7 +496,14 @@ width: 100%;
 }
 .login-page .home{margin:10% 0 0 0;}
 .login-page .register{overflow-x:auto; height:auto;}
-
+.login-page .login-field input[type="button"]{width: 48.5%;}
+#back{margin-right: 3%;}
+.cencel-pass{margin-right: 1%;}
+.cencel-pass, .send-pass{font-size: 18px;}
+#countries{width: 25%;}
+#mobileno{width: 70%;}
+#back{margin-right: 1%;}
+.login-page .register input[type="button"]{width: 48.5%;}
 	}
 	
 @media (max-width:375px){
@@ -494,7 +514,9 @@ width: 100%;
 .login-page .login-lft a{padding:10px 0;}
 .login-page .login-rgt a{padding:10px 0;}
 .login-page .register{font-size:17px;}
-
+.login-page .login-field input[type="button"], .login-page .register input[type="button"]{font-size: 20px;}
+.popup-box h2{font-size: 20px;}
+.cencel-pass, .send-pass{padding: 8px 0;}
 	}
 @media (max-width:360px){
 .login-page .login-field{top:25%;}
@@ -506,4 +528,7 @@ width: 100%;
 .container.rwded{left: 150px;}
 #panel{    padding-left: 85px;}
 #panel ul li a{font-size: 14px;}
+.login-page .login-field input[type="button"], .login-page .register input[type="button"], .login-page .register input[type="button"]{font-size: 18px; padding: 8px 0;}
+.login-page input[type="email"], input[type="password"], input[type="text"]{height: 40px;}
+.cencel-pass, .send-pass{padding: 7px 0; font-size: 15px;}
 	}
