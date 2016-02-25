@@ -218,7 +218,7 @@ body{font-family: Lato; overflow:hidden;}
     width: 68%;
     margin: 0 auto;
     padding: 1.5% 1%;
-    margin-top: 50%;
+    margin-top: 40%;
 	position: relative;
 	border: 3px solid #505050;}
 
@@ -520,6 +520,8 @@ width: 46.5%;
 	}
 @media (max-width:360px){
 .login-page .login-field{top:25%;}
+#mobileno{width: 65%;}
+#countries{width: 30%;}
 
 }
 @media (max-width:320px){

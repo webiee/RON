@@ -91,7 +91,7 @@ console.log(OneMap);
 function ZoomTo(xVal,yVal){
 $("#card").flip(true);
 $('#btmenu').css('display','block');
-
+$('#content').removeClass('search-page');
     OneMap.showLocation(xVal,yVal);
 }
 
