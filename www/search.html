@@ -11,11 +11,35 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900' rel='stylesheet' type='text/css'>
 <script src="js/jquery.min.js"></script>	
-  
+<script src="http://maps.googleapis.com/maps/api/js"></script> 
 <script src="js/jquery.flip.min.js"></script>
   <script type='text/JavaScript' src='js/map-api.js'></script>
 <script language="javascript" type="text/javascript" >
-    
+var markers = {};
+var getMarkerUniqueId= function(lat, lng) {
+    return lat + '_' + lng;
+}
+  function initialize(x,y) {
+  
+ x = Math.round(x * 10000000) / 10000000;
+ y = Math.round(y * 10000000) / 10000000;
+window.localStorage.setItem('x-marker',x);
+window.localStorage.setItem('y-marker',y);
+  var mapProp = {
+    center:new google.maps.LatLng(x,y),
+    zoom:17,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  var map=new google.maps.Map(document.getElementById("gMain"),mapProp);
+  var marker=new google.maps.Marker({
+  position:new google.maps.LatLng(x,y),
+  icon:'images/Red_glow.gif',
+  optimized: false
+  });
+var markerId = getMarkerUniqueId(x, y); 
+markers[markerId] = marker;
+marker.setMap(map);
+}  
     function GetSearchData() {
 	
         var basicSearch = new BasicSearch;
@@ -25,6 +49,7 @@
         basicSearch.GetSearchResults(displayData);
 		return false;
     }
+	
 
     function displayData(resultData){debugger;
         var results = resultData.results;
@@ -63,7 +88,7 @@
 				     htmlStr = htmlStr + cathtml;
 					htmlStr = htmlStr + "<tr>";
 					htmlStr = htmlStr + "<td>";
-					console.log(row.X +","+ row.Y);
+					//console.log(row.X +","+ row.Y);
 					htmlStr = htmlStr + "<a href='JavaScript:ZoomTo("+ row.X +","+ row.Y +")'>" + row.SEARCHVAL + "</a>";
 					htmlStr = htmlStr + "</td>";
 					htmlStr = htmlStr + "</tr>";
@@ -87,11 +112,16 @@
 //add map on body load 
 
 var OneMap = new GetOneMap('divMain','SM');   
-console.log(OneMap);
+//console.log(OneMap);
 function ZoomTo(xVal,yVal){
 $("#card").flip(true);
 $('#btmenu').css('display','block');
+$('#mycom').css('display','block');
+
+$('.container').removeClass('newcont');
 $('#content').removeClass('search-page');
+window.localStorage.setItem('x-cordinate',xVal);
+window.localStorage.setItem('y-cordinate',yVal);
     OneMap.showLocation(xVal,yVal);
 }
 
@@ -101,7 +131,7 @@ $('#content').removeClass('search-page');
 </style> 
 </head>
 <body >
-<div class="container">
+<div class="container newcont">
 <div class="flip-dv"><div id="flip">
 	<img src="images/sg-logo.png"/>
 <!--<i class="fa fa-bars"></i>--></div></div>
@@ -124,6 +154,7 @@ $('#content').removeClass('search-page');
 <div id="content" class="search-page">
 <div id="card"> 
   <div class="front"> 
+  <div id="menu"><p>Menu</p></div>
   <form onsubmit="return GetSearchData()">
   <input type="search" id="txtSearchText" name="Search" />
   <i class="fa fa-search search-icn"></i>
@@ -132,7 +163,22 @@ $('#content').removeClass('search-page');
    <div id="divResults"></div>
   </div> 
   <div class="back">
+  <div id="mycom" style="display:none">
+  <div id="notice" style="display:none"></div>
+
+	<div class="compass">
+		<div class="arrow"></div>
+		<div class="disc" id="compassDiscImg"></div>
+	</div>
+
+	<div class="orientation-data" style="display:none">
+		<div>Kantelen voor-achter: <span id="tiltFB"></span></div>
+		<div>Kantelen links-rechts: <span id="tiltLR"></span></div>
+		<div>Richting: <span id="direction"></span></div>
+	</div>
+	</div>
   <div id="divMain" ></div>
+  <div id="gMain" style="height:500px;width:500px;display:none;"></div>
   <div  id="cnti-box-tp" style="display:none;">
   	<div class="inn-cnti">
     <p><i class="fa fa-cloud"></i><br />
@@ -152,7 +198,7 @@ $('#content').removeClass('search-page');
                 <li><a href="home.html"><i class="fa fa-crosshairs"></i> Me</a></li>
                 <li class="parent"><a href="javascript:void(0)"><i class="fa fa-map-marker"></i>Map </a>
                     <ul class="submenu">
-                        <li> <a href="javascript:void(0)" onclick="showlot()">Lot</a> </li>
+                        <li> <a href="javascript:void(0)" onclick="showlot()">Land Lot</a> </li>
                         <li> <a href="javascript:void(0)" onclick="showonemap()">One Map</a> </li>
                         <li> <a href="javascript:void(0)" onclick="showgooglemap()">Google Map</a> </li>
                     </ul>
@@ -163,8 +209,59 @@ $('#content').removeClass('search-page');
    </div><!--rht-menu-->
 </div>
 <script>
+document.addEventListener("DOMContentLoaded", function(event) {
+
+	if (window.DeviceOrientationEvent) {
+  document.getElementById("notice").innerHTML = "Gaaf! De DeviceOrientationEvent API word door dit toestel ondersteund.";
+  window.addEventListener('deviceorientation', function(eventData) {
+  	// gamma: Tilting the device from left to right. Tilting the device to the right will result in a positive value.
+    // gamma: Het kantelen van links naar rechts in graden. Naar rechts kantelen zal een positieve waarde geven.
+    var tiltLR = eventData.gamma;
+
+    // beta: Tilting the device from the front to the back. Tilting the device to the front will result in a positive value.
+    // beta: Het kantelen van voor naar achteren in graden. Naar voren kantelen zal een positieve waarde geven.
+    var tiltFB = eventData.beta;
+
+    // alpha: The direction the compass of the device aims to in degrees.
+    // alpha: De richting waarin de kompas van het apparaat heen wijst in graden.
+    var dir = eventData.alpha
+
+    // Call the function to use the data on the page.
+    // Roep de functie op om de data op de pagina te gebruiken.
+    deviceOrientationHandler(tiltLR, tiltFB, dir);
+  }, false);
+} else {
+  document.getElementById("notice").innerHTML = "Helaas. De DeviceOrientationEvent API word niet door dit toestel ondersteund."
+};
+
+    function deviceOrientationHandler(tiltLR, tiltFB, dir) {
+      document.getElementById("tiltLR").innerHTML = Math.ceil(tiltLR);
+      document.getElementById("tiltFB").innerHTML = Math.ceil(tiltFB);
+      document.getElementById("direction").innerHTML = Math.ceil(dir);
+      
+      // Rotate the disc of the compass.
+      // Laat de kompas schijf draaien.
+      var compassDisc = document.getElementById("compassDiscImg");
+      compassDisc.style.webkitTransform = "rotate("+ dir +"deg)";
+      compassDisc.style.MozTransform = "rotate("+ dir +"deg)";
+      compassDisc.style.transform = "rotate("+ dir +"deg)";
+    }
+
+});
+</script>
+<script>
+$('#menu').click(
+function()
+{
+$(".container").addClass("rwded");
+
+}
+
+);
 function showlot()
 {
+$('#divMain').css('display','block');
+$('#gMain').css('display','none');
  require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/domReady!"],
         function(Map, ArcGISTiledMapServiceLayer) {
 var _baseMapHost = "http://www.onemap.sg/ArcGIS/rest/services/";
@@ -180,7 +277,7 @@ var _baseMapURL2;
    
           tiled = new ArcGISTiledMapServiceLayer(_baseMapURL, { tileServers: [_baseMapURL1, _baseMapURL2] });
           OneMap.map.addLayer(tiled);
-		  console.log(OneMap.map.layerIds);
+		  //console.log(OneMap.map.layerIds);
 		  
         }
       );
@@ -188,24 +285,53 @@ var _baseMapURL2;
 }
 function showonemap()
 {
+$('#divMain').css('display','block');
+$('#gMain').css('display','none');
  OneMap.map.addLayer(new OM.CustomTileServiceLayer());
 }
 function showgooglemap()
 {
-var a = OneMap.map.layerIds[0];
-var b = OneMap.map.getLayer(a);
-//OneMap.map.removeLayer(b);
+var x = window.localStorage.getItem('x-cordinate');
+var y = window.localStorage.getItem('y-cordinate');
+var inXYList = x+','+y;
+//console.log(txt);
+inputSR = 3414;
+outputSR = 4326;
+var CoordConvertorObj = new CoordConvertor();
+CoordConvertorObj.ConvertCoordinate(inXYList, inputSR, outputSR, showVals);
+		
 }
 function removealllayer()
 {
+var x = window.localStorage.getItem('x-marker');
+var y = window.localStorage.getItem('y-marker');
+if(x!==null)
+{
+var markerId = getMarkerUniqueId(x,y); 
+var marker = markers[markerId];
+marker.setMap(null); 
+delete markers[markerId];
+window.localStorage.removeItem('x-marker');
+window.localStorage.removeItem('y');
+}
 var a = OneMap.map.graphicsLayerIds[0];
-console.log(a);
+//console.log(a);
 var b = OneMap.map.getLayer(a);
 OneMap.map.removeLayer(b);
-  
-
-
 }
+ function showVals(outXY) {
+ var mystring = outXY;
+var splits = mystring.split(",");
+var y = parseFloat(splits[0]);
+var x = parseFloat(splits[1]);
+console.log(x+','+y);
+$('#divMain').css('display','none');
+$('#gMain').css('display','block');
+initialize(x,y);
+
+
+
+        }
 </script>
 <script>
 function logout()
@@ -217,6 +343,8 @@ window.location.href="index.html";
 <script>
 function showhide()
 {
+$('#divMain').css('display','block');
+$('#gMain').css('display','none');
 $('#cnti-box-tp').toggle();
 $('.container').toggleClass('rwded');
 //$("#panel").slideUp("slow");
@@ -237,27 +365,8 @@ if(a==0)
 {
 if(tiled!=""&&count!=1)
 {
- 
-  
-require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "dojo/domReady!"],
-        function(Map, ArcGISTiledMapServiceLayer) {
-var _baseMapHost = "http://www.onemap.sg/ArcGIS/rest/services/";
-var tileHost1 = "http://t1.onemap.sg/ArcGIS/rest/services/"
-var tileHost2 = "http://t2.onemap.sg/ArcGIS/rest/services/";
-var _baseMapURL;
-var _baseMapURL1;
-var _baseMapURL2;
-        _baseMapURL = _baseMapHost + "basemap" + "/MapServer";
-        _baseMapURL1 = tileHost1 + "basemap" + "/MapServer";
-        _baseMapURL2 = tileHost2 + "basemap" + "/MapServer";
-   var request = new XMLHttpRequest();
-   
-          OneMap.map.addLayer(new OM.CustomTileServiceLayer());
-          
-		  
-		  
-        }
-      );
+
+OneMap.map.addLayer(new OM.CustomTileServiceLayer());
   
 }
 }
@@ -279,7 +388,7 @@ var _baseMapURL2;
    
           tiled = new ArcGISTiledMapServiceLayer(_baseMapURL, { tileServers: [_baseMapURL1, _baseMapURL2] });
           OneMap.map.addLayer(tiled);
-		  console.log(OneMap.map.layerIds);
+		  //console.log(OneMap.map.layerIds);
 		  
         }
       );
