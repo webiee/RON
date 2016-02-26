@@ -9,7 +9,6 @@ body{font-family: Lato; overflow:hidden;}
 
 #panel {
     padding: 50px;
-   divmap
 }
 
 #loader{position: absolute;
@@ -476,19 +475,17 @@ ul.wtf-menu li a:hover{
 	html{overflow-x: hidden; overflow-y:hidden;}
 	.inn-cnti{width:160px;}
 .login-page .home{margin:10% 0 0;}
-#txtSearchText{border-radius: 25px; height: 45px; padding-left: 45px; font-size: 20px; padding-right: 10px;}
-.search-icn{left: 130px; top: 65px; font-size: 33px;}
+#txtSearchText{border-radius: 25px; height: 45px; padding-left: 45px; font-size: 20px; padding-right: 10px; margin-left: 25px; margin-top: 140px;}
+.search-icn{left:32px; top:145px; font-size: 33px;}
 #menu{padding: 52px 10px 15px;}
 
 .compass {
  position: relative;
-width: 100px;
-height: 100px;
+width: 60px;
+height: 60px;
  margin: 20px auto;
- background: #222;
  padding: 20px;
  border-radius: 40px;
- border: 5px solid #444;
  overflow: hidden;
 }
 
@@ -498,8 +495,8 @@ height: 100px;
  left: 20px;
  z-index: 200;
  background: url('http://dev.rvltn.eu/compass/compass.svg');
-width: 100px;
-height: 100px;
+width:60px;
+height: 60px;
  background-size: 100%;
 }
 
@@ -509,8 +506,8 @@ height: 100px;
  left: 20px;
  z-index: 1000;
  background: url('http://dev.rvltn.eu/compass/arrow.svg');
- width: 100px;
-height: 100px;
+ width:60px;
+height:60px;
  background-size: 100%;
 }
 
