@@ -480,13 +480,10 @@ ul.wtf-menu li a:hover{
 #menu{padding: 52px 10px 15px;}
 
 .compass {
- position: relative;
+ position: absolute;
 width: 60px;
 height: 60px;
- margin: 20px auto;
- padding: 20px;
- border-radius: 40px;
- overflow: hidden;
+
 }
 
 .compass .disc {
